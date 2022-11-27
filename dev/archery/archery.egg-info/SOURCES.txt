@@ -1,8 +1,6 @@
 MANIFEST.in
 README.md
 setup.py
-../../LICENSE.txt
-../../NOTICE.txt
 archery/__init__.py
 archery/bot.py
 archery/cli.py

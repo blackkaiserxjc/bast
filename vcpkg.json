@@ -1,0 +1,16 @@
+{
+  "name": "askr",
+  "version-string": "0.0.1",
+  "dependencies": [
+    "boost",
+    "cxxopts",
+    "fmt",
+    "protobuf",
+    "rapidjson",
+    "msgpack",
+    "sol2",
+    "zlib",
+    "range-v3",
+    "spdlog"
+  ]
+}

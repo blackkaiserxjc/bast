@@ -1,22 +1,22 @@
 click>=7
 
 [all]
-pandas
-setuptools_scm
 cmake_format==0.6.13
 gitpython
-flake8
+semver
+pandas
 jira
 requests
-numpydoc==1.1.0
-autopep8
 ruamel.yaml
-jinja2>=2.11
-pygit2>=1.6.0
 pygithub
-github3.py
+jinja2>=2.11
 python-dotenv
-semver
+pygit2>=1.6.0
+flake8
+autopep8
+github3.py
+numpydoc==1.1.0
+setuptools_scm
 
 [benchmark]
 pandas
