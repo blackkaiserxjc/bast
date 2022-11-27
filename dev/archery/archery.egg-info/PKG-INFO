@@ -1,0 +1,17 @@
+Metadata-Version: 2.1
+Name: archery
+Version: 0.1.0
+Summary: Apache Arrow Developers Tools
+Home-page: http://github.com/apache/arrow
+Maintainer: Arrow Developers
+Maintainer-email: dev@arrow.apache.org
+Requires-Python: >=3.7
+Provides-Extra: lint
+Provides-Extra: benchmark
+Provides-Extra: docker
+Provides-Extra: release
+Provides-Extra: crossbow
+Provides-Extra: crossbow-upload
+Provides-Extra: numpydoc
+Provides-Extra: bot
+Provides-Extra: all

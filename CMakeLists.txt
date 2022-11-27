@@ -1,0 +1,46 @@
+cmake_minimum_required(VERSION 3.20)
+
+project(bast LANGUAGES CXX)
+
+if (POLICY CMP0054)
+  cmake_policy(SET CMP0054 NEW)
+endif()
+
+if (POLICY CMP0057)
+  cmake_policy(SET CMP0057 NEW)
+endif()
+
+if (NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE "Debug")
+endif()
+
+option(CMAKE_BUILD_TYPE "Build Type" "Debug")
+option(ENABLE_TESTING "Enable Testing" ON)
+
+if(ENABLE_TESTING)
+  enable_testing()
+  message(STATUS "Building with testing enabled")
+else()
+  disable_testing()
+  message(STATUS "Building with testing disabled")
+endif()
+
+# platform
+if (MSVC)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Zi /EHs /DEBUG /std:c++latest")
+  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /GS /Od /MTd /bigobj")
+  set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /Gy /MT /O2 -DNDEBUG /bigobj")
+  set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /SAFESEH:NO /DEBUG")
+  add_definitions(-D_WIN32_WINNT=0x0601 -DBOOST_CONFIG_SUPPRESS_OUTDATED_MESSAGE -D_SCL_SECURE_NO_WARNINGS -D_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS -D_CRT_SECURE_NO_WARNINGS -D_DISABLE_EXTENDED_ALIGNED_STORAGE)
+else ()
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20 -g")
+  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -Wvolatile -Wno-dev")
+  set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O2 -DNDEBUG -Wvolatile -Wno-dev")
+  add_definitions(-D_GLIBCXX_USE_CXX11_ABI=1)
+endif ()
+
+# module path
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_LIST_DIR}/cmake" CACHE STRING "Modules for CMake" FORCE)
+
+
+
