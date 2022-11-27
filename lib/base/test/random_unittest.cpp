@@ -1,8 +1,8 @@
 #include <map>
 #include <vector>
 
-#include <boost/test/unit_test.hpp>
 #include <base/random.h>
+#include <boost/test/unit_test.hpp>
 
 BOOST_AUTO_TEST_SUITE(RandomTest)
 

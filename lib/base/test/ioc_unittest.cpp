@@ -1,5 +1,5 @@
-#include <boost/test/unit_test.hpp>
 #include <base/ioc_container.h>
+#include <boost/test/unit_test.hpp>
 
 BOOST_AUTO_TEST_SUITE(IocTest)
 
