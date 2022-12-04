@@ -5,7 +5,8 @@ find_package(Threads REQUIRED)
 set(bast_base_unittest_SRCS
     crc_unittest.cpp
     random_unittest.cpp
-    unittest_main.cpp
+        result_unittest.cpp
+        unittest_main.cpp
     ioc_unittest.cpp
 )
 
