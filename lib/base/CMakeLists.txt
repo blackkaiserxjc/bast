@@ -2,14 +2,16 @@ find_package(Boost REQUIRED)
 find_package(fmt CONFIG REQUIRED)
 
 set(base_SRCS
-    base64.h
-    base64.cpp
-    crc.h
-    ioc_container.h
-    ioc_container.cpp
-    random.h
-    random.cpp
-)
+        base64.h
+        base64.cpp
+        crc.h
+        ioc_container.h
+        ioc_container.cpp
+        random.h
+        random.cpp
+        result.h
+        type_traits.h
+        )
 
 set(base_detail_SRCS
     detail/crc_table.h

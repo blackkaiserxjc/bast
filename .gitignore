@@ -1,3 +1,6 @@
 /build/debug/
 /.idea/
 /dev/archery/build/lib/archery/
+/build/
+/.vscode/
+/lib/base/build/

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "type_traits.h"
+
 #include <boost/mp11.hpp>
 
 #include <fmt/core.h>
@@ -7,6 +9,7 @@
 #include <fmt/ostream.h>
 
 #include <exception>
+#include <functional>
 #include <source_location>
 #include <system_error>
 #include <type_traits>
@@ -26,7 +29,8 @@ template <class... T>
 using is_errc_t = std::is_same<boost::mp11::mp_list<std::remove_cvref_t<T>...>, boost::mp11::mp_list<std::errc>>;
 
 template <class T>
-inline constexpr bool is_errc_v = is_errc_t<T>::value;
+inline constexpr bool is_errc_v = std::is_error_code_enum<T>::value;
+// inline constexpr bool is_errc_v = is_errc_t<T>::value;
 
 } // namespace detail
 
@@ -174,37 +178,37 @@ public:
     }
 
     template <class A = T, typename std::enable_if_t<std::is_convertible_v<A, T> && !(detail::is_errc_v<A> && std::is_arithmetic_v<T>)&&std::is_constructible_v<E, A>, int> = 0>
-    constexpr explicit result(A &&a) noexcept(std::is_nothrow_constructible_v<T, A>)
+    constexpr result(A &&a) noexcept(std::is_nothrow_constructible_v<T, A>)
         : v_(in_place_value, std::forward<A>(a))
     {
     }
 
     template <class A = E, class = void, typename std::enable_if_t<std::is_convertible_v<A, E> && !std::is_constructible_v<T, A>, int> = 0>
-    constexpr explicit result(A &&a) noexcept(std::is_nothrow_constructible_v<E, A>)
+    constexpr result(A &&a) noexcept(std::is_nothrow_constructible_v<E, A>)
         : v_(in_place_error, std::forward<A>(a))
     {
     }
 
     template <class... A, class En = typename std::enable_if_t<std::is_constructible_v<T, A...> && !(detail::is_errc_v<A...> && std::is_arithmetic_v<T>)&&!std::is_constructible_v<E, A...>>>
-    constexpr explicit result(A &&...a) noexcept(std::is_nothrow_constructible_v<T, A...>)
+    explicit constexpr result(A &&...a) noexcept(std::is_nothrow_constructible_v<T, A...>)
         : v_(in_place_value, std::forward<A>(a)...)
     {
     }
 
     template <class... A, class En2 = void, class En = typename std::enable_if_t<!std::is_constructible_v<T, A...> && std::is_constructible_v<E, A...>>>
-    constexpr explicit result(A &&...a) noexcept(std::is_nothrow_constructible_v<E, A...>)
+    explicit constexpr result(A &&...a) noexcept(std::is_nothrow_constructible_v<E, A...>)
         : v_(in_place_error, std::forward<A>(a)...)
     {
     }
 
     template <class... A, class En = typename std::enable_if_t<std::is_constructible_v<T, A...>>>
-    constexpr explicit result(in_place_value_t, A &&...a) noexcept(std::is_nothrow_constructible_v<T, A...>)
+    constexpr result(in_place_value_t, A &&...a) noexcept(std::is_nothrow_constructible_v<T, A...>)
         : v_(in_place_value, std::forward<A>(a)...)
     {
     }
 
     template <class... A, class En = typename std::enable_if_t<std::is_constructible_v<E, A...>>>
-    constexpr explicit result(in_place_error_t, A &&...a) noexcept(std::is_nothrow_constructible_v<E, A...>)
+    constexpr result(in_place_error_t, A &&...a) noexcept(std::is_nothrow_constructible_v<E, A...>)
         : v_(in_place_error, std::forward<A>(a)...)
     {
     }
@@ -271,6 +275,118 @@ public:
     value(std::source_location const &location = std::source_location::current())
     {
         return std::move(value(location));
+    }
+
+    // F: func T -> U
+    template <typename F>
+    constexpr auto and_then(F &&f) &
+    {
+        using Up = std::invoke_result_t<F, value_type &>;
+        if (has_value())
+            return std::invoke(std::forward<F>(f), value());
+        return std::remove_cvref_t<Up>();
+    }
+
+    template <typename F>
+    constexpr auto and_then(F &&f) const &
+    {
+        using Up = std::invoke_result_t<F, value_type const &>;
+        if (has_value())
+            return std::invoke(std::forward<F>(f), value());
+        return std::remove_cvref_t<Up>(error());
+    }
+
+    template <typename F>
+    constexpr auto and_then(F &&f) &&
+    {
+        using Up = std::invoke_result_t<F, value_type &&>;
+        if (has_value())
+            return std::invoke(std::forward<F>(f), std::move(value()));
+        return std::remove_cvref_t<Up>(error());
+    }
+
+    template <typename F>
+    constexpr auto and_then(F &&f) const &&
+    {
+        using Up = std::invoke_result_t<F, value_type const &&>;
+        if (has_value())
+            return std::invoke(std::forward<F>(f), std::move(value()));
+        return std::remove_cvref_t<Up>(error());
+    }
+
+    // F: E-> U
+    template <typename F>
+    constexpr auto or_else(F &&f) &
+    {
+        using Up = std::invoke_result_t<F, error_type &>;
+        if (has_error())
+            return std::invoke(std::forward<Up>(f), error());
+        return *this;
+    }
+
+    template <typename F>
+    constexpr auto or_else(F &&f) const &
+    {
+        using Up = std::invoke_result_t<F, error_type const &>;
+        if (has_error())
+            return std::invoke(std::forward<F>(f), error());
+        return *this;
+    }
+
+    template <typename F>
+    constexpr auto or_else(F &&f) &&
+    {
+        using Up = std::invoke_result_t<F, error_type &&>;
+        if (has_error())
+            return std::invoke(std::forward<F>(f), std::move(error()));
+        return std::move(*this);
+    }
+
+    template <typename F>
+    constexpr auto or_else(F &&f) const &&
+    {
+        using Up = std::invoke_result_t<F, error_type const &&>;
+        if (has_error())
+            return std::invoke(std::forward<F>(f), std::move(error()));
+        return std::move(*this);
+    }
+
+    // F: T -> U
+    // retval: result<U, E>
+    template <typename F>
+    constexpr auto map(F &&f) &
+    {
+        using Up = std::remove_cv_t<std::invoke_result_t<F, value_type &>>;
+        if (has_value())
+            return std::invoke<Up>(std::forward<F>(f), value());
+        return result<Up>(error());
+    }
+
+    template <typename F>
+    constexpr auto map(F &&f) const &
+    {
+        using Up = std::remove_cv_t<std::invoke_result_t<F, value_type const &>>;
+        if (has_value())
+            return std::invoke<Up>(std::forward<F>(f), value());
+        return result<Up>(error());
+    }
+
+    template <typename F>
+    constexpr auto map(F &&f) &&
+    {
+        using Up = std::remove_cv_t<std::invoke_result_t<F, value_type &&>>;
+        if (has_value())
+            return std::invoke<Up>(std::forward<F>(f), std::move(value()));
+        return result<Up>(error());
+    }
+
+    template <typename F>
+    constexpr auto map(F &&f) const &&
+    {
+        using Up = std::remove_cvref_t<std::invoke_result_t<F, value_type const &&>>;
+        if (has_value())
+            return std::invoke(std::forward<F>(f), std::move(value()));
+        return result<Up>(error());
     }
 
     constexpr T *operator->() noexcept
@@ -386,24 +502,24 @@ public:
     }
 
     template <class A, class En2 = void, class En = typename std::enable_if_t<std::is_convertible_v<A, E>>>
-    constexpr explicit result(A &&a) noexcept(std::is_nothrow_constructible<E, A>::value)
+    constexpr result(A &&a) noexcept(std::is_nothrow_constructible<E, A>::value)
         : v_(in_place_error, std::forward<A>(a))
     {
     }
 
     template <class... A, class En2 = void, class En3 = void, class En = typename std::enable_if_t<std::is_constructible_v<E, A...> && sizeof...(A) >= 2>>
-    constexpr explicit result(A &&...a) noexcept(std::is_nothrow_constructible_v<E, A...>)
+    constexpr result(A &&...a) noexcept(std::is_nothrow_constructible_v<E, A...>)
         : v_(in_place_error, std::forward<A>(a)...)
     {
     }
 
-    constexpr explicit result(in_place_value_t) noexcept
+    constexpr result(in_place_value_t) noexcept
         : v_(in_place_value)
     {
     }
 
     template <class... A, class En = typename std::enable_if_t<std::is_constructible_v<E, A...>>>
-    constexpr explicit result(in_place_error_t, A &&...a) noexcept(std::is_nothrow_constructible_v<E, A...>)
+    constexpr result(in_place_error_t, A &&...a) noexcept(std::is_nothrow_constructible_v<E, A...>)
         : v_(in_place_error, std::forward<A>(a)...)
     {
     }
