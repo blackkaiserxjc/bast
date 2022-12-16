@@ -320,8 +320,8 @@ public:
     {
         using Up = std::invoke_result_t<F, error_type &>;
         if (has_error())
-            return std::invoke(std::forward<Up>(f), error());
-        return *this;
+            return result<Up>(std::invoke(std::forward<F>(f), error()));
+        return result<Up>(*this);
     }
 
     template <typename F>
@@ -329,8 +329,8 @@ public:
     {
         using Up = std::invoke_result_t<F, error_type const &>;
         if (has_error())
-            return std::invoke(std::forward<F>(f), error());
-        return *this;
+            return result<Up, error_type>(std::invoke(std::forward<F>(f), error()));
+        return result<Up>(*this);
     }
 
     template <typename F>
@@ -338,8 +338,8 @@ public:
     {
         using Up = std::invoke_result_t<F, error_type &&>;
         if (has_error())
-            return std::invoke(std::forward<F>(f), std::move(error()));
-        return std::move(*this);
+            return result<Up, error_type>(std::invoke(std::forward<F>(f), std::move(error())));
+        return result<Up>(std::move(*this));
     }
 
     template <typename F>
@@ -347,8 +347,8 @@ public:
     {
         using Up = std::invoke_result_t<F, error_type const &&>;
         if (has_error())
-            return std::invoke(std::forward<F>(f), std::move(error()));
-        return std::move(*this);
+            return result<Up, error_type>(std::invoke(std::forward<F>(f), std::move(error())));
+        return result<Up>(std::move(*this));
     }
 
     // F: T -> U
@@ -358,7 +358,7 @@ public:
     {
         using Up = std::remove_cv_t<std::invoke_result_t<F, value_type &>>;
         if (has_value())
-            return std::invoke<Up>(std::forward<F>(f), value());
+            return result<Up>(std::invoke(std::forward<F>(f), value()));
         return result<Up>(error());
     }
 
@@ -367,7 +367,7 @@ public:
     {
         using Up = std::remove_cv_t<std::invoke_result_t<F, value_type const &>>;
         if (has_value())
-            return std::invoke<Up>(std::forward<F>(f), value());
+            return result<Up>(std::invoke(std::forward<F>(f), value()));
         return result<Up>(error());
     }
 
@@ -376,7 +376,7 @@ public:
     {
         using Up = std::remove_cv_t<std::invoke_result_t<F, value_type &&>>;
         if (has_value())
-            return std::invoke<Up>(std::forward<F>(f), std::move(value()));
+            return result<Up>(std::invoke(std::forward<F>(f), std::move(value())));
         return result<Up>(error());
     }
 
@@ -385,7 +385,7 @@ public:
     {
         using Up = std::remove_cvref_t<std::invoke_result_t<F, value_type const &&>>;
         if (has_value())
-            return std::invoke(std::forward<F>(f), std::move(value()));
+            return result<Up>(std::invoke(std::forward<F>(f), std::move(value())));
         return result<Up>(error());
     }
 

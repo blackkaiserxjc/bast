@@ -49,7 +49,9 @@ endif()
 set(Boost_NO_WARN_NEW_VERSIONS 1)
 
 # module path
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_LIST_DIR}/cmake/modules" CACHE STRING "Modules for CMake" FORCE)
+set(CMAKE_MODULE_PATH
+    ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_LIST_DIR}/cmake/modules"
+    CACHE STRING "Modules for CMake" FORCE)
 
 add_subdirectory(lib)
 add_subdirectory(src)
