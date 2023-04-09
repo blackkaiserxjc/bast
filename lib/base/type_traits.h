@@ -1,12 +1,10 @@
 #pragma once
 
-#include <boost/config.hpp>
-
 #include <type_traits>
 
 namespace bast {
 
-#if BOOST_CXX_VERSION >= 201703L && defined(__cpp_lib_is_invocable) && __cpp_lib_is_invocable >= 201703
+#if __cplusplus >= 201703L && defined(__cpp_lib_is_invocable) && __cpp_lib_is_invocable >= 201703
 
 template <typename F, typename... Args>
 using return_type_of_t = std::invoke_result_t<F, Args...>;

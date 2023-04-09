@@ -10,15 +10,15 @@ set(base_SRCS
         random.h
         random.cpp
         result.h
+        type.h
         type_traits.h
         )
 
 set(base_detail_SRCS
-    detail/crc_table.h
-    detail/ioc_container.h
-    detail/base64.h
-    detail/base64.cpp
-)
+        detail/crc_table.h
+        detail/ioc_container.h
+        detail/base64.h
+        detail/base64.cpp)
 
 add_library(bast_base
     ${base_SRCS}

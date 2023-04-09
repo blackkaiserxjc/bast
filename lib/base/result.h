@@ -399,14 +399,14 @@ public:
         return std::get_if<0>(&v_);
     }
 
-    constexpr T &operator*() &noexcept
+    constexpr T &operator*() & noexcept
     {
         auto p = operator->();
         assert(p != nullptr);
         return *p;
     }
 
-    constexpr T const &operator*() const &noexcept
+    constexpr T const &operator*() const & noexcept
     {
         T const *p = operator->();
         assert(p != nullptr);
@@ -416,7 +416,7 @@ public:
     template <class U = T>
     constexpr
         typename std::enable_if_t<std::is_move_constructible_v<U>, T>::type
-        operator*() &&noexcept(std::is_nothrow_move_constructible_v<T>)
+        operator*() && noexcept(std::is_nothrow_move_constructible_v<T>)
     {
         return std::move(**this);
     }
@@ -424,7 +424,7 @@ public:
     template <class U = T>
     constexpr
         typename std::enable_if_t<!std::is_move_constructible_v<U>, T &&>
-        operator*() &&noexcept
+        operator*() && noexcept
     {
         return std::move(**this);
     }
@@ -432,12 +432,12 @@ public:
     template <class U = T>
     constexpr
         typename std::enable_if_t<std::is_move_constructible_v<U>, T>
-        operator*() const &&noexcept = delete;
+        operator*() const && noexcept = delete;
 
     template <class U = T>
     constexpr
         typename std::enable_if_t<!std::is_move_constructible_v<U>, T const &&>
-        operator*() const &&noexcept
+        operator*() const && noexcept
     {
         return std::move(**this);
     }
@@ -591,12 +591,14 @@ private:
 } // namespace base
 } // namespace bast
 
+namespace fmt {
 template <class Char, class T, class E>
-struct fmt::formatter<bast::base::result<T, E>, Char> : basic_ostream_formatter<Char>
+struct formatter<bast::base::result<T, E>, Char> : basic_ostream_formatter<Char>
 {
 };
 
 template <class Char, class E>
-struct fmt::formatter<bast::base::result<void, E>, Char> : basic_ostream_formatter<Char>
+struct formatter<bast::base::result<void, E>, Char> : basic_ostream_formatter<Char>
 {
 };
+} // namespace fmt

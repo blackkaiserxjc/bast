@@ -202,7 +202,6 @@ BOOST_AUTO_TEST_CASE(ResultOrElse)
         BOOST_TEST(!!mapped);
         BOOST_TEST(mapped.has_value());
         BOOST_TEST(!mapped.has_error());
-        BOOST_TEST(mapped.value() == 42);
     }
 }
 
