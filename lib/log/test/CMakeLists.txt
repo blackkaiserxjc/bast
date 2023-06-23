@@ -10,7 +10,6 @@ add_executable(bast_log_unittest ${bast_log_unittest_SRCS})
 target_link_libraries(bast_log_unittest
         Catch2::Catch2
         Catch2::Catch2WithMain
-        spdlog::spdlog
         spdlog::spdlog_header_only
         bast::log
         Threads::Threads)

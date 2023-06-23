@@ -1,5 +1,6 @@
 #pragma once
 
+#include <log/common.h>
 #include <spdlog/spdlog.h>
 
 namespace bast {

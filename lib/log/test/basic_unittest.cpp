@@ -1,7 +1,5 @@
 #include <catch2/catch_test_macros.hpp>
 #include <log/log.h>
-#include <spdlog/sinks/stdout_color_sinks.h>
-#include <spdlog/spdlog.h>
 
 TEST_CASE("log test case marcos", "[log][macros]")
 {

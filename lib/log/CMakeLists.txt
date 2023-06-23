@@ -1,6 +1,7 @@
 find_package(spdlog CONFIG REQUIRED)
 
 set(log_SRCS
+        common.h
         log.h
         setup.h)
 
