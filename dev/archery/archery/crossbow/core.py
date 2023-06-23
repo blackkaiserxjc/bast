@@ -15,26 +15,26 @@
 # specific language governing permissions and limitations
 # under the License.
 
-import os
-import re
 import fnmatch
 import glob
-import time
+import jinja2
 import logging
 import mimetypes
+import os
+import re
 import subprocess
 import textwrap
+import time
 import uuid
+import warnings
+from datetime import date
 from io import StringIO
 from pathlib import Path
-from datetime import date
-import warnings
-
-import jinja2
 from ruamel.yaml import YAML
 
 try:
     import github3
+
     _have_github3 = True
 except ImportError:
     github3 = object

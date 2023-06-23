@@ -15,9 +15,9 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from contextlib import contextmanager
 import inspect
 import tokenize
+from contextlib import contextmanager
 
 try:
     from numpydoc.validate import Docstring, validate

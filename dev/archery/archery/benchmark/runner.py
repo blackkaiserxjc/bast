@@ -26,8 +26,8 @@ from .jmh import JavaMicrobenchmarkHarnessCommand, JavaMicrobenchmarkHarness
 from ..lang.cpp import CppCMakeDefinition, CppConfiguration
 from ..lang.java import JavaMavenDefinition, JavaConfiguration
 from ..utils.cmake import CMakeBuild
-from ..utils.maven import MavenBuild
 from ..utils.logger import logger
+from ..utils.maven import MavenBuild
 
 
 def regex_filter(re_expr):

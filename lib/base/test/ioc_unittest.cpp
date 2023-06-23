@@ -1,7 +1,5 @@
 #include <base/ioc_container.h>
-#include <boost/test/unit_test.hpp>
-
-BOOST_AUTO_TEST_SUITE(IocTest)
+#include <catch2/catch_test_macros.hpp>
 
 struct Interface
 {
@@ -38,7 +36,7 @@ struct Car
     std::string str;
 };
 
-BOOST_AUTO_TEST_CASE(Basic)
+TEST_CASE("ioc container basic test case", "[base][ioc][basic]")
 {
     using namespace bast::base;
     {
@@ -58,4 +56,3 @@ BOOST_AUTO_TEST_CASE(Basic)
         car->Func();
     }
 }
-BOOST_AUTO_TEST_SUITE_END()

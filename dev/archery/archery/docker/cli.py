@@ -15,13 +15,12 @@
 # specific language governing permissions and limitations
 # under the License.
 
+import click
 import os
 import sys
 
-import click
-
-from ..utils.cli import validate_arrow_sources
 from .core import DockerCompose, UndefinedImage
+from ..utils.cli import validate_arrow_sources
 
 
 def _mock_compose_calls(compose):

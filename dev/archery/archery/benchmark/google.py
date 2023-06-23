@@ -15,9 +15,9 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from itertools import filterfalse, groupby, tee
 import json
 import subprocess
+from itertools import filterfalse, groupby, tee
 from tempfile import NamedTemporaryFile
 
 from .core import Benchmark

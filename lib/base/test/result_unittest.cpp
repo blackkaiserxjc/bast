@@ -1,9 +1,8 @@
 #include <base/result.h>
-#include <boost/test/unit_test.hpp>
+#include <catch2/catch_test_macros.hpp>
 
 #include <charconv>
 #include <memory>
-#include <ranges>
 #include <string_view>
 #include <system_error>
 
@@ -35,107 +34,104 @@ struct X
 };
 int X::instances = 0;
 
-BOOST_AUTO_TEST_SUITE(Result)
-
-BOOST_AUTO_TEST_CASE(ResultValueConstruct)
+TEST_CASE("result value construct", "[base][result][result-value-construct]")
 {
     using namespace bast::base;
     {
         result<int> r(0);
 
-        BOOST_TEST(r.has_value());
-        BOOST_TEST(!r.has_error());
+        REQUIRE(r.has_value());
+        REQUIRE(!r.has_error());
 
-        BOOST_TEST(r.value() == 0);
+        REQUIRE(r.value() == 0);
     }
     {
         result<int> r{0};
 
-        BOOST_TEST(r.has_value());
-        BOOST_TEST(!r.has_error());
+        REQUIRE(r.has_value());
+        REQUIRE(!r.has_error());
 
-        BOOST_TEST(r.value() == 0);
+        REQUIRE(r.value() == 0);
     }
 
     {
         result<int, int> r(in_place_value, 1);
 
-        BOOST_TEST(r.has_value());
-        BOOST_TEST(!r.has_error());
+        REQUIRE(r.has_value());
+        REQUIRE(!r.has_error());
 
-        BOOST_CHECK_EQUAL(*r, 1);
+        REQUIRE(*r == 1);
     }
 
-    BOOST_CHECK_EQUAL(X::instances, 0);
+    REQUIRE(X::instances == 0);
 
     {
         result<X> r(1);
 
-        BOOST_TEST(r.has_value());
-        BOOST_TEST(!r.has_error());
+        REQUIRE(r.has_value());
+        REQUIRE(!r.has_error());
 
-        BOOST_CHECK_EQUAL(r.value().v_, 1);
+        REQUIRE(r.value().v_ == 1);
 
-        BOOST_CHECK_EQUAL(X::instances, 1);
+        REQUIRE(X::instances == 1);
     }
 
-    BOOST_CHECK_EQUAL(X::instances, 0);
-
+    REQUIRE(X::instances == 0);
     {
         result<X> r(1);
 
-        BOOST_TEST(r.has_value());
-        BOOST_TEST(!r.has_error());
+        REQUIRE(r.has_value());
+        REQUIRE(!r.has_error());
 
-        BOOST_CHECK_EQUAL(r.value().v_, 1);
+        REQUIRE(r.value().v_ == 1);
 
-        BOOST_CHECK_EQUAL(X::instances, 1);
+        REQUIRE(X::instances == 1);
     }
 }
 
-BOOST_AUTO_TEST_CASE(ResultValueAccess)
+TEST_CASE("result value access test case", "[base][result][result-value-access]")
 {
     using namespace bast::base;
     {
         result<int> r;
-        BOOST_TEST(r.has_value());
-        BOOST_TEST(!r.has_error());
+        REQUIRE(r.has_value());
+        REQUIRE(!r.has_error());
 
-        BOOST_TEST(r);
+        REQUIRE(r);
 
-        BOOST_CHECK_EQUAL(r.value(), 0);
-        BOOST_CHECK_EQUAL(*r, 0);
+        REQUIRE(r.value() == 0);
+        REQUIRE(*r == 0);
 
-        BOOST_CHECK_EQUAL(r.operator->(), &*r);
+        REQUIRE(r.operator->() == &*r);
     }
     {
         result<int> const r;
-        BOOST_TEST(r.has_value());
-        BOOST_TEST(!r.has_error());
+        REQUIRE(r.has_value());
+        REQUIRE(!r.has_error());
 
-        BOOST_TEST(r);
+        REQUIRE(r);
 
-        BOOST_CHECK_EQUAL(r.value(), 0);
-        BOOST_CHECK_EQUAL(*r, 0);
+        REQUIRE(r.value() == 0);
+        REQUIRE(*r == 0);
 
-        BOOST_CHECK_EQUAL(r.operator->(), &*r);
+        REQUIRE(r.operator->() == &*r);
     }
 
     {
         auto ec = std::make_error_code(std::errc::invalid_argument);
         result<int> r(ec);
 
-        BOOST_TEST(!r.has_value());
-        BOOST_TEST(r.has_error());
+        REQUIRE(!r.has_value());
+        REQUIRE(r.has_error());
 
-        BOOST_TEST(!r);
+        REQUIRE(!r);
 
-        BOOST_CHECK_EQUAL(r.operator->(), static_cast<int *>(0));
-        BOOST_CHECK_EQUAL(r.error(), ec);
+        REQUIRE(r.operator->() == static_cast<int *>(0));
+        REQUIRE(r.error() == ec);
     }
 }
 
-BOOST_AUTO_TEST_CASE(ResultMap)
+TEST_CASE("result map test case", "[base][result][map]")
 {
     using namespace bast::base;
     {
@@ -143,24 +139,24 @@ BOOST_AUTO_TEST_CASE(ResultMap)
         auto mapped = r.map([](int i) -> int {
             return i * 2;
         });
-        BOOST_TEST(!!mapped);
-        BOOST_TEST(mapped.has_value());
-        BOOST_TEST(!mapped.has_error());
-        BOOST_TEST(mapped.value() == 42 * 2);
+        REQUIRE(!!mapped);
+        REQUIRE(mapped.has_value());
+        REQUIRE(!mapped.has_error());
+        REQUIRE(mapped.value() == 42 * 2);
     }
     {
         result<std::unique_ptr<int>> r{std::make_unique<int>(42)};
         auto mapped = std::move(r).map([](std::unique_ptr<int> i) -> int {
             return *i;
         });
-        BOOST_TEST(!!mapped);
-        BOOST_TEST(mapped.has_value());
-        BOOST_TEST(!mapped.has_error());
-        BOOST_TEST(mapped.value() == 42);
+        REQUIRE(!!mapped);
+        REQUIRE(mapped.has_value());
+        REQUIRE(!mapped.has_error());
+        REQUIRE(mapped.value() == 42);
     }
 }
 
-BOOST_AUTO_TEST_CASE(ResultAndThen)
+TEST_CASE("result and_then test case", "[base][result][and_then]")
 {
     using namespace bast::base;
     {
@@ -168,10 +164,10 @@ BOOST_AUTO_TEST_CASE(ResultAndThen)
         auto mapped = r.and_then([](int i) -> result<int> {
             return result<int>(i * 2);
         });
-        BOOST_TEST(!!mapped);
-        BOOST_TEST(mapped.has_value());
-        BOOST_TEST(!mapped.has_error());
-        BOOST_TEST(mapped.value() == 84);
+        REQUIRE(!!mapped);
+        REQUIRE(mapped.has_value());
+        REQUIRE(!mapped.has_error());
+        REQUIRE(mapped.value() == 84);
     }
     {
         result<std::string_view> r("42");
@@ -185,13 +181,13 @@ BOOST_AUTO_TEST_CASE(ResultAndThen)
                        })
                           .map([](int n) { return n + 1; })
                           .map([](int n) { return std::to_string(n); });
-        BOOST_TEST(!!mapped);
-        BOOST_TEST(mapped.has_value());
-        BOOST_TEST(mapped.value() == "43");
+        REQUIRE(!!mapped);
+        REQUIRE(mapped.has_value());
+        REQUIRE(mapped.value() == "43");
     }
 }
 
-BOOST_AUTO_TEST_CASE(ResultOrElse)
+TEST_CASE("result or_else test case", "[base][result][or_else]")
 {
     using namespace bast::base;
     {
@@ -199,10 +195,8 @@ BOOST_AUTO_TEST_CASE(ResultOrElse)
         auto mapped = r.or_else([](auto ec) -> result<int> {
             return std::make_error_code(std::errc::invalid_argument);
         });
-        BOOST_TEST(!!mapped);
-        BOOST_TEST(mapped.has_value());
-        BOOST_TEST(!mapped.has_error());
+        REQUIRE(!!mapped);
+        REQUIRE(mapped.has_value());
+        REQUIRE(!mapped.has_error());
     }
 }
-
-BOOST_AUTO_TEST_SUITE_END()

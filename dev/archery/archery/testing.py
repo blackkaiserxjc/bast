@@ -15,10 +15,10 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from contextlib import contextmanager
 import os
-from unittest import mock
 import re
+from contextlib import contextmanager
+from unittest import mock
 
 
 class DotDict(dict):

@@ -15,14 +15,13 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from collections import namedtuple, OrderedDict
 import binascii
 import json
+import numpy as np
 import os
 import random
 import tempfile
-
-import numpy as np
+from collections import namedtuple, OrderedDict
 
 from .util import frombytes, tobytes, random_bytes, random_utf8
 

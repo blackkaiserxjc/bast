@@ -4,6 +4,7 @@
   "dependencies": [
     "boost",
     "cxxopts",
+    "catch2",
     "fmt",
     "protobuf",
     "rapidjson",

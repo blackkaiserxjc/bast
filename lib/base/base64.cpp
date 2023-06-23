@@ -1,5 +1,6 @@
 #include <base/base64.h>
 #include <base/detail/base64.h>
+#include <cstdint>
 
 namespace bast {
 namespace base {

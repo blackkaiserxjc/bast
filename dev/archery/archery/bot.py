@@ -15,18 +15,17 @@
 # specific language governing permissions and limitations
 # under the License.
 
-import os
-import shlex
-from pathlib import Path
-from functools import partial
-import tempfile
-
 import click
 import github
+import os
+import shlex
+import tempfile
+from functools import partial
+from pathlib import Path
 
+from .crossbow import Repo, Queue, Config, Target, Job, CommentReport
 from .utils.git import git
 from .utils.logger import logger
-from .crossbow import Repo, Queue, Config, Target, Job, CommentReport
 
 
 class EventError(Exception):

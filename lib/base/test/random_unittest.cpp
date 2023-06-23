@@ -2,11 +2,9 @@
 #include <vector>
 
 #include <base/random.h>
-#include <boost/test/unit_test.hpp>
+#include <catch2/catch_test_macros.hpp>
 
-BOOST_AUTO_TEST_SUITE(RandomTest)
-
-BOOST_AUTO_TEST_CASE(RandInt)
+TEST_CASE("random int test", "[base][random][rand-int]")
 {
     using bast::base::random;
     const int average = 20;
@@ -31,7 +29,7 @@ BOOST_AUTO_TEST_CASE(RandInt)
     }
 }
 
-BOOST_AUTO_TEST_CASE(Uniform)
+TEST_CASE("random uniform test case ", "[base][random][uniform]")
 {
     using bast::base::random;
     std::map<float, float> ranges = {
@@ -45,10 +43,8 @@ BOOST_AUTO_TEST_CASE(Uniform)
         for (auto [min, max] : ranges)
         {
             auto value = r.uniform(min, max);
-            BOOST_CHECK_GE(value, min);
-            BOOST_CHECK_LE(value, max);
+            REQUIRE(value >= min);
+            REQUIRE(value <= max);
         }
     }
 }
-
-BOOST_AUTO_TEST_SUITE_END()

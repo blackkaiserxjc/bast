@@ -18,14 +18,13 @@
 import os
 import shlex
 import subprocess
-from io import StringIO
-
 from dotenv import dotenv_values
+from io import StringIO
 from ruamel.yaml import YAML
 
+from ..compat import _ensure_path
 from ..utils.command import Command, default_bin
 from ..utils.source import arrow_path
-from ..compat import _ensure_path
 
 
 def flatten(node, parents=None):

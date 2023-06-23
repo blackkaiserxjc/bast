@@ -15,8 +15,8 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from pathlib import Path
 import os
+from pathlib import Path
 from urllib.request import urlopen
 
 from .logger import logger

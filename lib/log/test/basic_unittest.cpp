@@ -1,11 +1,9 @@
-#include <boost/test/unit_test.hpp>
+#include <catch2/catch_test_macros.hpp>
 #include <log/log.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
 #include <spdlog/spdlog.h>
 
-BOOST_AUTO_TEST_SUITE(BasicTest)
-
-BOOST_AUTO_TEST_CASE(Macros)
+TEST_CASE("log test case marcos", "[log][macros]")
 {
     {
         LOG_TRACE("Test Macros Message1");
@@ -23,7 +21,14 @@ BOOST_AUTO_TEST_CASE(Macros)
         LOG_ERROR("Test Macros Format {}", "Message5");
         LOG_CRITICAL("Test Macros Format {}", "Message6");
     }
-    {
-    }
 }
-BOOST_AUTO_TEST_SUITE_END()
+
+TEST_CASE("log test case stdout ", "[log][stdout]")
+{
+    bast::log::trace("Test Stdout Trace Message");
+    bast::log::debug("Test Stdout Debug Message");
+    bast::log::info("Test Stdout Info Message");
+    bast::log::warn("Test Stdout Warn Message");
+    bast::log::error("Test Stdout Error Message");
+    bast::log::critical("Test Stdout Critical Message");
+}

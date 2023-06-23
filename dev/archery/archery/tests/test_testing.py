@@ -15,10 +15,8 @@
 # specific language governing permissions and limitations
 # under the License.
 
-import subprocess
-
 import pytest
-
+import subprocess
 from archery.testing import PartialEnv, assert_subprocess_calls
 
 

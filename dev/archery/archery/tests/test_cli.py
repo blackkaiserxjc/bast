@@ -15,12 +15,10 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from archery.cli import archery
+from click.testing import CliRunner
 from pathlib import Path
 from unittest.mock import patch
-
-from click.testing import CliRunner
-
-from archery.cli import archery
 
 
 @patch("archery.linking.check_dynamic_library_dependencies")

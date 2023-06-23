@@ -16,12 +16,11 @@
 # under the License.
 
 import json
-
 from archery.benchmark.codec import JsonEncoder
-from archery.benchmark.core import Benchmark, median
 from archery.benchmark.compare import (
     BenchmarkComparator, RunnerComparator
 )
+from archery.benchmark.core import Benchmark, median
 from archery.benchmark.google import (
     GoogleBenchmark, GoogleBenchmarkObservation
 )

@@ -19,9 +19,9 @@ import fnmatch
 import re
 from xml.etree import ElementTree
 
-from ..lang.java import Jar
 from .cache import Cache
 from .command import capture_stdout
+from ..lang.java import Jar
 
 RAT_VERSION = 0.13
 RAT_JAR_FILENAME = "apache-rat-{}.jar".format(RAT_VERSION)

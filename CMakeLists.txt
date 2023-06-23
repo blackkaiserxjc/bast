@@ -39,9 +39,9 @@ if(MSVC)
                   -D_DISABLE_EXTENDED_ALIGNED_STORAGE)
 else()
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++23 -g")
-  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -Wvolatile -Wno-dev")
+  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -Wvolatile")
   set(CMAKE_CXX_FLAGS_RELEASE
-      "${CMAKE_CXX_FLAGS_RELEASE} -O2 -DNDEBUG -Wvolatile -Wno-dev")
+          "${CMAKE_CXX_FLAGS_RELEASE} -O2 -DNDEBUG -Wvolatile")
   add_definitions(-D_GLIBCXX_USE_CXX11_ABI=1)
 endif()
 

@@ -22,7 +22,6 @@ import subprocess
 from .tester import Tester
 from .util import run_cmd, log
 
-
 # FIXME(sbinet): revisit for Go modules
 _HOME = os.getenv("HOME", "~")
 _GOPATH = os.getenv("GOPATH", os.path.join(_HOME, "go"))

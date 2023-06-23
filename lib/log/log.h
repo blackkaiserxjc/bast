@@ -21,6 +21,12 @@ inline void debug(format_string_t<Args...> fmt, Args &&...args)
 }
 
 template <typename... Args>
+inline void info(format_string_t<Args...> fmt, Args &&...args)
+{
+    spdlog::default_logger_raw()->info(fmt, std::forward<Args>(args)...);
+}
+
+template <typename... Args>
 inline void warn(format_string_t<Args...> fmt, Args &&...args)
 {
     spdlog::default_logger_raw()->warn(fmt, std::forward<Args>(args)...);
@@ -36,6 +42,18 @@ template <typename... Args>
 inline void critical(format_string_t<Args...> fmt, Args &&...args)
 {
     spdlog::default_logger_raw()->critical(fmt, std::forward<Args>(args)...);
+}
+
+template <typename T>
+inline void log(spdlog::source_loc location, spdlog::level::level_enum lvl, const T &msg)
+{
+    spdlog::default_logger_raw()->log(location, lvl, msg);
+}
+
+template <typename T>
+inline void log(spdlog::level::level_enum lvl, const T &msg)
+{
+    spdlog::default_logger_raw()->log(lvl, msg);
 }
 
 } // namespace log

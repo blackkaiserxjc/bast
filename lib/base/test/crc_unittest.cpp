@@ -1,4 +1,4 @@
-#include <boost/test/unit_test.hpp>
+#include <catch2/catch_test_macros.hpp>
 
 #include <base/crc.h>
 #include <string_view>
@@ -11,11 +11,7 @@ constexpr uint32_t crc32(std::string_view str)
     return crc.checksum();
 }
 
-BOOST_AUTO_TEST_SUITE(CRC)
-
-BOOST_AUTO_TEST_CASE(CompileTimeTest)
+TEST_CASE("crc compile time case", "[base][crc][compile-time-test]")
 {
     static_assert(crc32("123456789") == 0xCBF43926);
 }
-
-BOOST_AUTO_TEST_SUITE_END()

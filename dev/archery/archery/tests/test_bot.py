@@ -15,16 +15,14 @@
 # specific language governing permissions and limitations
 # under the License.
 
+import click
 import json
 import os
-from unittest import mock
-from unittest.mock import Mock
-
-import click
 import pytest
 import responses as rsps
-
 from archery.bot import CommentBot, CommandError, group
+from unittest import mock
+from unittest.mock import Mock
 
 
 @pytest.fixture

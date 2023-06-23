@@ -15,14 +15,14 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from collections import namedtuple
-from io import StringIO
 import click
 import json
 import logging
 import os
 import pathlib
 import sys
+from collections import namedtuple
+from io import StringIO
 
 from .benchmark.codec import JsonEncoder
 from .benchmark.compare import RunnerComparator, DEFAULT_THRESHOLD

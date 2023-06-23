@@ -15,22 +15,21 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from abc import abstractmethod
-from collections import defaultdict
 import functools
 import os
 import pathlib
 import re
 import shelve
 import warnings
-
+from abc import abstractmethod
+from collections import defaultdict
 from git import Repo
 from jira import JIRA
 from semver import VersionInfo as SemVer
 
-from ..utils.source import ArrowSources
-from ..utils.logger import logger
 from .reports import ReleaseCuration, JiraChangelog
+from ..utils.logger import logger
+from ..utils.source import ArrowSources
 
 
 def cached_property(fn):
@@ -38,7 +37,6 @@ def cached_property(fn):
 
 
 class Version(SemVer):
-
     __slots__ = ('released', 'release_date')
 
     def __init__(self, released=False, release_date=None, **kwargs):

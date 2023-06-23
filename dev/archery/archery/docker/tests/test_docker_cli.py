@@ -15,12 +15,10 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from unittest.mock import patch
-
-from click.testing import CliRunner
-
 from archery.docker import DockerCompose
 from archery.docker.cli import docker
+from click.testing import CliRunner
+from unittest.mock import patch
 
 
 @patch.object(DockerCompose, "pull")

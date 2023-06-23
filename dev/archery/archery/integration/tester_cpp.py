@@ -23,7 +23,6 @@ from .tester import Tester
 from .util import run_cmd, log
 from ..utils.source import ARROW_ROOT_DEFAULT
 
-
 _EXE_PATH = os.environ.get(
     "ARROW_CPP_EXE_PATH", os.path.join(ARROW_ROOT_DEFAULT, "cpp/build/debug")
 )

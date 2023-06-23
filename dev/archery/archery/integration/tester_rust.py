@@ -23,7 +23,6 @@ from .tester import Tester
 from .util import run_cmd, log
 from ..utils.source import ARROW_ROOT_DEFAULT
 
-
 _EXE_PATH = os.path.join(ARROW_ROOT_DEFAULT, "rust/target/debug")
 _INTEGRATION_EXE = os.path.join(_EXE_PATH, "arrow-json-integration-test")
 _STREAM_TO_FILE = os.path.join(_EXE_PATH, "arrow-stream-to-file")

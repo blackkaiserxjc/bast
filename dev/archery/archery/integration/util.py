@@ -17,14 +17,13 @@
 
 import contextlib
 import io
+import numpy as np
 import random
 import socket
 import subprocess
 import sys
 import threading
 import uuid
-
-import numpy as np
 
 
 def guid():

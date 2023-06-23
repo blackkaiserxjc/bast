@@ -15,10 +15,9 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from archery.utils.source import ArrowSources
-from archery.crossbow import Config, Queue
-
 import pathlib
+from archery.crossbow import Config, Queue
+from archery.utils.source import ArrowSources
 from unittest import mock
 
 

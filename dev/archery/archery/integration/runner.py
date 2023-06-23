@@ -15,9 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from collections import namedtuple
-from concurrent.futures import ThreadPoolExecutor
-from functools import partial
 import glob
 import gzip
 import itertools
@@ -25,20 +22,22 @@ import os
 import sys
 import tempfile
 import traceback
+from collections import namedtuple
+from concurrent.futures import ThreadPoolExecutor
+from functools import partial
 from typing import Callable, List
 
+from . import datagen
 from .scenario import Scenario
 from .tester import Tester
 from .tester_cpp import CPPTester
+from .tester_csharp import CSharpTester
 from .tester_go import GoTester
-from .tester_rust import RustTester
 from .tester_java import JavaTester
 from .tester_js import JSTester
-from .tester_csharp import CSharpTester
+from .tester_rust import RustTester
 from .util import guid, SKIP_ARROW, SKIP_FLIGHT, printer
 from ..utils.source import ARROW_ROOT_DEFAULT
-from . import datagen
-
 
 Failure = namedtuple('Failure',
                      ('test_case', 'producer', 'consumer', 'exc_info'))

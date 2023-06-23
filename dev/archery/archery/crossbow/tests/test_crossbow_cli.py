@@ -15,11 +15,10 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from click.testing import CliRunner
 import pytest
-
 from archery.crossbow.cli import crossbow
 from archery.utils.git import git
+from click.testing import CliRunner
 
 
 @pytest.mark.integration

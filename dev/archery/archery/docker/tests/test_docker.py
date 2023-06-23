@@ -17,15 +17,12 @@
 
 import collections
 import os
+import pytest
 import re
 import subprocess
-from unittest import mock
-
-import pytest
-
 from archery.docker import DockerCompose
 from archery.testing import assert_subprocess_calls, override_env, PartialEnv
-
+from unittest import mock
 
 missing_service_compose_yml = """
 version: '3.5'

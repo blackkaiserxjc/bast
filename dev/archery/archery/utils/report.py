@@ -15,10 +15,9 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from abc import ABCMeta, abstractmethod
 import datetime
-
 import jinja2
+from abc import ABCMeta, abstractmethod
 
 
 def markdown_escape(s):

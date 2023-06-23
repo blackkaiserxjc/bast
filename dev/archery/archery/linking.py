@@ -20,7 +20,6 @@ import subprocess
 
 from .utils.command import Command
 
-
 _ldd = Command("ldd")
 _otool = Command("otool")
 

@@ -15,16 +15,14 @@
 # specific language governing permissions and limitations
 # under the License.
 
+import click
 import collections
 import csv
-import operator
 import fnmatch
 import functools
-import time
-
-import click
+import operator
 import requests
-
+import time
 from archery.utils.report import JinjaReport
 
 

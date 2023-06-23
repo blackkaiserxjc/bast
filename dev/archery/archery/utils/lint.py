@@ -15,23 +15,21 @@
 # specific language governing permissions and limitations
 # under the License.
 
+import click
 import fnmatch
 import gzip
 import os
 from pathlib import Path
 
-import click
-
-from .command import Bash, Command, default_bin
-from ..compat import _get_module
 from .cmake import CMake
+from .command import Bash, Command, default_bin
 from .git import git
 from .logger import logger
-from ..lang.cpp import CppCMakeDefinition, CppConfiguration
-from ..lang.python import Autopep8, Flake8, NumpyDoc
 from .rat import Rat, exclusion_from_globs
 from .tmpdir import tmpdir
-
+from ..compat import _get_module
+from ..lang.cpp import CppCMakeDefinition, CppConfiguration
+from ..lang.python import Autopep8, Flake8, NumpyDoc
 
 _archery_install_msg = (
     "Please install archery using: `pip install -e dev/archery[lint]`. "

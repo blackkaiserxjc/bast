@@ -16,11 +16,10 @@
 # under the License.
 
 import os
-from pathlib import Path
 import subprocess
+from pathlib import Path
 
 from .git import git
-
 
 ARROW_ROOT_DEFAULT = os.environ.get(
     'ARROW_ROOT',

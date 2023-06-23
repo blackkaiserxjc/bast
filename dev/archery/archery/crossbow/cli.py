@@ -15,17 +15,15 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from pathlib import Path
-import time
-import sys
-
 import click
+import sys
+import time
+from pathlib import Path
 
 from .core import Config, Repo, Queue, Target, Job, CrossbowError
 from .reports import (ChatReport, Report, ReportUtils, ConsoleReport,
                       EmailReport, CommentReport)
 from ..utils.source import ArrowSources
-
 
 _default_arrow_path = ArrowSources.find().path
 _default_queue_path = _default_arrow_path.parent / "crossbow"

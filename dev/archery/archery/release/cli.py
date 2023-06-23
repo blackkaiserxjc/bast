@@ -15,12 +15,11 @@
 # specific language governing permissions and limitations
 # under the License.
 
+import click
 import pathlib
 
-import click
-
-from ..utils.cli import validate_arrow_sources
 from .core import Jira, CachedJira, Release
+from ..utils.cli import validate_arrow_sources
 
 
 @click.group('release')

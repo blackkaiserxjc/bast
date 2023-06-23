@@ -21,7 +21,6 @@ from .tester import Tester
 from .util import run_cmd, log
 from ..utils.source import ARROW_ROOT_DEFAULT
 
-
 _EXE_PATH = os.path.join(ARROW_ROOT_DEFAULT, 'js/bin')
 _VALIDATE = os.path.join(_EXE_PATH, 'integration.js')
 _JSON_TO_ARROW = os.path.join(_EXE_PATH, 'json-to-arrow.js')

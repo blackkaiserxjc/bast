@@ -18,9 +18,9 @@
 
 import json
 
+from ..benchmark.compare import BenchmarkComparator
 from ..benchmark.core import Benchmark, BenchmarkSuite
 from ..benchmark.runner import BenchmarkRunner, StaticBenchmarkRunner
-from ..benchmark.compare import BenchmarkComparator
 
 
 class JsonEncoder(json.JSONEncoder):
