@@ -2,28 +2,34 @@ cmake_minimum_required(VERSION 3.20)
 
 project(bast LANGUAGES CXX)
 
-if(POLICY CMP0054)
+if (POLICY CMP0054)
   cmake_policy(SET CMP0054 NEW)
-endif()
+endif ()
 
-if(POLICY CMP0057)
+if (POLICY CMP0057)
   cmake_policy(SET CMP0057 NEW)
-endif()
+endif ()
 
-if(NOT CMAKE_BUILD_TYPE)
+set(vcpkg "$ENV{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake")
+if (NOT CMAKE_TOOLCHAIN_FILE AND EXISTS "${vcpkg}")
+  set(CMAKE_TOOLCHAIN_FILE "${vcpkg}" CACHE FILEPATH "CMake toolchain file")
+  message(STATUS "vcpkg toolchain found: ${CMAKE_TOOLCHAIN_FILE}")
+endif ()
+
+if (NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE "Debug")
-endif()
+endif ()
 
 option(CMAKE_BUILD_TYPE "Build Type" "Debug")
-option(ENABLE_TESTING "Enable Testing" ON)
+option(BUILD_TESTING "Enable Testing" ON)
 
-if(ENABLE_TESTING)
+if (BUILD_TESTING)
   enable_testing()
   message(STATUS "Building with testing enabled")
-else()
+else ()
   disable_testing()
   message(STATUS "Building with testing disabled")
-endif()
+endif ()
 
 # platform
 if(MSVC)
@@ -39,9 +45,9 @@ if(MSVC)
                   -D_DISABLE_EXTENDED_ALIGNED_STORAGE)
 else()
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++23 -g")
-  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -Wvolatile")
+  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -Wvolatile -Wreturn-type")
   set(CMAKE_CXX_FLAGS_RELEASE
-          "${CMAKE_CXX_FLAGS_RELEASE} -O2 -DNDEBUG -Wvolatile")
+          "${CMAKE_CXX_FLAGS_RELEASE} -O2 -DNDEBUG -Wvolatile -Wreturn-type")
   add_definitions(-D_GLIBCXX_USE_CXX11_ABI=1)
 endif()
 
@@ -53,5 +59,7 @@ set(CMAKE_MODULE_PATH
     ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_LIST_DIR}/cmake/modules"
     CACHE STRING "Modules for CMake" FORCE)
 
+
 add_subdirectory(lib)
 add_subdirectory(src)
+add_subdirectory(tools)

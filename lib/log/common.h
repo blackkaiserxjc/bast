@@ -13,15 +13,10 @@ namespace level {
 #define LOG_LEVEL_NAME_OFF std::string_view("off", 3)
 
 #if !defined(SPDLOG_LEVEL_NAMES)
-#define SPDLOG_LEVEL_NAMES          \
-    {                               \
-        LOG_LEVEL_NAME_TRACE,       \
-            LOG_LEVEL_NAME_DEBUG,   \
-            LOG_LEVEL_NAME_INFO,    \
-            LOG_LEVEL_NAME_WARNING, \
-            LOG_LEVEL_NAME_ERROR,   \
-            LOG_LEVEL_NAME_CRIT,    \
-            LOG_LEVEL_NAME_OFF      \
+#define SPDLOG_LEVEL_NAMES                                                                                                                  \
+    {                                                                                                                                       \
+        LOG_LEVEL_NAME_TRACE, LOG_LEVEL_NAME_DEBUG, LOG_LEVEL_NAME_INFO, LOG_LEVEL_NAME_WARNING, LOG_LEVEL_NAME_ERROR, LOG_LEVEL_NAME_CRIT, \
+            LOG_LEVEL_NAME_OFF                                                                                                              \
     }
 #endif
 
