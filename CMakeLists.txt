@@ -10,12 +10,6 @@ if (POLICY CMP0057)
   cmake_policy(SET CMP0057 NEW)
 endif ()
 
-set(vcpkg "$ENV{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake")
-if (NOT CMAKE_TOOLCHAIN_FILE AND EXISTS "${vcpkg}")
-  set(CMAKE_TOOLCHAIN_FILE "${vcpkg}" CACHE FILEPATH "CMake toolchain file")
-  message(STATUS "vcpkg toolchain found: ${CMAKE_TOOLCHAIN_FILE}")
-endif ()
-
 if (NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE "Debug")
 endif ()
@@ -59,6 +53,9 @@ set(CMAKE_MODULE_PATH
     ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_LIST_DIR}/cmake/modules"
     CACHE STRING "Modules for CMake" FORCE)
 
+if (USE_PKG STREQUAL "VCPKG")
+  #include(UseVcpkg)
+endif ()
 
 add_subdirectory(lib)
 add_subdirectory(src)

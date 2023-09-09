@@ -1,0 +1,32 @@
+{
+  "name": "bast",
+  "version-string": "1.0.0",
+  "dependencies": [
+    "boost",
+    "benchmark",
+    "brotli",
+    "bzip2",
+    "c-ares",
+    "catch2",
+    "cxxopts",
+    "fmt",
+    "msgpack",
+    "openssl",
+    "protobuf",
+    "range-v3",
+    "spdlog",
+    "sol2",
+    "zlib",
+    "zstd",
+    {
+      "name": "boost-algorithm",
+      "version>=": "1.82.0#2"
+    },
+    {
+      "name": "catch2",
+      "version>=": "3.3.2#1",
+      "$comment": "    # this is heuristically generated, and may not be correct\n\n    find_package(Catch2 CONFIG REQUIRED)\n\n    target_link_libraries(main PRIVATE Catch2::Catch2 Catch2::Catch2WithMain)\n"
+    }
+  ],
+  "builtin-baseline": "9d47b24eacbd1cd94f139457ef6cd35e5d92cc84"
+}

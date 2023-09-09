@@ -20,9 +20,9 @@ function build() {
 
     echo "Start building bast ..."
     if [ $1 -eq 1 ]; then
-        cmake .. -DBUILD_TESTING=YES -DCMAKE_BUILD_TYPE=Debug $cmake_gen  -DCMAKE_TOOLCHAIN_FILE=~/Desktop/code/cpp/env/vcpkg/scripts/buildsystems/vcpkg.cmake  -DVCPKG_TARGET_TRIPLET=x64-linux -DCMAKE_INSTALL_PREFIX=../install/debug
+        cmake .. -DCMAKE_BUILD_TYPE=Debug $cmake_gen --preset debug
     elif [ $1 -eq 2 ]; then
-        cmake .. -DBUILD_TESTING=YES -DCMAKE_BUILD_TYPE=Release $cmake_gen  -DCMAKE_TOOLCHAIN_FILE=~/Desktop/code/cpp/env/vcpkg/scripts/buildsystems/vcpkg.cmake  -DVCPKG_TARGET_TRIPLET=x64-linux -DCMAKE_INSTALL_PREFIX=../install/release
+        cmake .. -DCMAKE_BUILD_TYPE=Release $cmake_gen --preset release
     fi
 
     #if errors then exit

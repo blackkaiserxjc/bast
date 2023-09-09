@@ -4,3 +4,4 @@
 /build/
 /.vscode/
 /lib/base/build/
+/cmake-build-debug-event-trace/

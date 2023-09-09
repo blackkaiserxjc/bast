@@ -1,5 +1,4 @@
 find_package(cxxopts CONFIG REQUIRED)
-find_package(Boost CONFIG REQUIRED)
 
 set(bast_cli_SRCS
         version.h

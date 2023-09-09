@@ -1,0 +1,30 @@
+{
+  "version": 3,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 23,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "debug",
+      "description": "debug build",
+      "toolchainFile": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
+      "binaryDir": "${sourceDir}/build/debug",
+      "cacheVariables": {
+        "BUILD_TESTING": "YES",
+        "VCPKG_TARGET_TRIPLET": "x64-linux"
+      }
+    },
+    {
+      "name": "release",
+      "description": "release build",
+      "toolchainFile": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
+      "binaryDir": "${sourceDir}/build/release",
+      "cacheVariables": {
+        "BUILD_TESTING": "YES",
+        "VCPKG_TARGET_TRIPLET": "x64-linux"
+      }
+    }
+  ]
+}

@@ -13,7 +13,8 @@ set(base_SRCS
         type.h
         type_traits.h
         rate_limiter.h
-        rate_limiter.cpp)
+        rate_limiter.cpp
+        snowflake.h)
 
 set(base_detail_SRCS
         detail/crc_table.h
@@ -25,7 +26,7 @@ set(base_detail_SRCS
         detail/sliding_window_rate_limiter.h
         detail/sliding_window_rate_limiter.cpp
         detail/token_bucket_rate_limiter.h
-        detail/token_bucket_rate_limiter.cpp)
+        detail/token_bucket_rate_limiter.cpp snowflake.h snowflake.h)
 
 add_library(bast_base
     ${base_SRCS}
