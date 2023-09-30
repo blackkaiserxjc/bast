@@ -1,5 +1,5 @@
 find_package(Boost REQUIRED)
-#find_package(fmt CONFIG REQUIRED)
+find_package(fmt CONFIG REQUIRED)
 
 set(base_SRCS
         base64.h
@@ -26,13 +26,20 @@ set(base_detail_SRCS
         detail/sliding_window_rate_limiter.h
         detail/sliding_window_rate_limiter.cpp
         detail/token_bucket_rate_limiter.h
-        detail/token_bucket_rate_limiter.cpp snowflake.h snowflake.h)
+        detail/token_bucket_rate_limiter.cpp
+        ../boot/application.h)
 
 add_library(bast_base
     ${base_SRCS}
     ${base_detail_SRCS}
 )
 add_library(bast::base ALIAS bast_base)
+
+# target depend libraries
+target_link_libraries(bast_base PRIVATE
+        Boost::boost
+        fmt::fmt-header-only
+)
 
 if (BUILD_TESTING)
     add_subdirectory(test)

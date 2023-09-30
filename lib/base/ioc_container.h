@@ -5,6 +5,7 @@
 #include <typeindex>
 #include <unordered_map>
 
+#include <boost/multi_array.hpp>
 #include <boost/multi_index/hashed_index.hpp>
 #include <boost/multi_index/member.hpp>
 #include <boost/multi_index/sequenced_index.hpp>

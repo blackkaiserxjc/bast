@@ -10,7 +10,7 @@
       "name": "debug",
       "description": "debug build",
       "toolchainFile": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
-      "binaryDir": "${sourceDir}/build/debug",
+      "binaryDir": "${sourceDir}/build",
       "cacheVariables": {
         "BUILD_TESTING": "YES",
         "VCPKG_TARGET_TRIPLET": "x64-linux"
@@ -20,7 +20,7 @@
       "name": "release",
       "description": "release build",
       "toolchainFile": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
-      "binaryDir": "${sourceDir}/build/release",
+      "binaryDir": "${sourceDir}/build",
       "cacheVariables": {
         "BUILD_TESTING": "YES",
         "VCPKG_TARGET_TRIPLET": "x64-linux"
