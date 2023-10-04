@@ -5,6 +5,7 @@ set(base_SRCS
         base64.h
         base64.cpp
         crc.h
+        error_types.h
         ioc_container.h
         ioc_container.cpp
         random.h
@@ -27,7 +28,7 @@ set(base_detail_SRCS
         detail/sliding_window_rate_limiter.cpp
         detail/token_bucket_rate_limiter.h
         detail/token_bucket_rate_limiter.cpp
-        ../boot/application.h)
+        ../bootstrap/application.h)
 
 add_library(bast_base
     ${base_SRCS}

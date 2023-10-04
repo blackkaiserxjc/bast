@@ -19,3 +19,24 @@ static const char banner[] =
     B::::::::::::::::BA:::::A                 A:::::AS:::::::::::::::SS       T:::::::::T
     BBBBBBBBBBBBBBBBBAAAAAAA                   AAAAAAASSSSSSSSSSSSSSS         TTTTTTTTTTT
     )";
+
+namespace bast {
+namespace cli {
+
+version_command::version_command()
+    : command("version", "show the version")
+{
+}
+
+version_command::~version_command()
+{
+}
+
+error_code version_command::execute(std::span<std::string> args)
+{
+    std::cout << banner << std::endl;
+    return error::success;
+}
+
+} // namespace cli
+} // namespace bast
