@@ -9,6 +9,8 @@
 namespace bast {
 namespace cli {
 
+using Respository = std::unordered_map<std::string, command_ptr>;
+
 class command_runner
 {
 public:
@@ -34,6 +36,18 @@ public:
     command_ptr find(const std::string &name) const;
 
     /**
+     * get command list
+     * @return command list
+     */
+    Respository get() const;
+
+    /**
+     * get name
+     * @return name
+     */
+    std::string name() const;
+
+    /**
      * run the appropriate
      * @param args input args
      * @return status code
@@ -53,15 +67,17 @@ protected:
 
     void before_run(command_ptr command);
     void after_run(command_ptr command);
+    void show_usage();
 
     // parse command line options
     std::vector<std::string> parse(int argc, const char *const *argv);
 
 private:
-    using Respository = std::unordered_map<std::string, command_ptr>;
     std::string name_;
     Respository respository_;
 };
+
+using command_runner_ptr = std::shared_ptr<command_runner>;
 
 } // namespace cli
 } // namespace bast

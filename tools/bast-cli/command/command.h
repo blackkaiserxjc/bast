@@ -61,7 +61,7 @@ using command_ptr = std::shared_ptr<command>;
 template <typename T, typename... Args>
 auto make_command(Args &&...args)
 {
-    return std::make_unique<T>(std::forward<Args>(args)...);
+    return std::make_shared<T>(std::forward<Args>(args)...);
 }
 
 } // namespace cli

@@ -12,7 +12,7 @@ enum class error
      */
     success = 0,
 
-    /***
+    /**
      * input args is empty
      */
     no_args = 1,
@@ -21,6 +21,11 @@ enum class error
      * not found command
      */
     not_found_cmd = 2,
+
+    /**
+     * input help args is empty
+     */
+    no_help_args = 3,
 };
 
 enum class condition
