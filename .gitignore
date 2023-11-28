@@ -1,7 +1,10 @@
-/build/debug/
+u/build/debug/
 /.idea/
 /dev/archery/build/lib/archery/
 /build/
 /.vscode/
 /lib/base/build/
 /cmake-build-debug-event-trace/
+/.fleet/settings.json
+/.cache/jb/UpdateWork.dat
+/.cache/jb/version.txt
