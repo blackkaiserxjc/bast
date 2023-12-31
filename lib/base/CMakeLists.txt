@@ -10,6 +10,7 @@ set(base_SRCS
         hash.h
         ioc_container.h
         ioc_container.cpp
+        lazy.h
         random.h
         random.cpp
         result.h

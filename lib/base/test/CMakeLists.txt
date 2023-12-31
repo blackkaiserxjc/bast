@@ -8,6 +8,7 @@ set(bast_base_unittest_SRCS
         random_unittest.cpp
         result_unittest.cpp
         ioc_unittest.cpp
+        lazy_unittest.cpp
         snowflake_unittest.cpp)
 
 add_executable(bast_base_unittest ${bast_base_unittest_SRCS})

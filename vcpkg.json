@@ -10,6 +10,7 @@
     "catch2",
     "cxxopts",
     "fmt",
+    "fakeit",
     "xxhash",
     "msgpack",
     "openssl",
@@ -21,7 +22,7 @@
     "zstd",
     {
       "name": "boost-algorithm",
-      "version>=": "1.82.0#2"
+      "version>=": "1.83.0"
     },
     {
       "name": "catch2",
