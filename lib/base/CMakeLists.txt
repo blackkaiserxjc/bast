@@ -18,7 +18,9 @@ set(base_SRCS
         type_traits.h
         rate_limiter.h
         rate_limiter.cpp
-        snowflake.h)
+        snowflake.h
+        utility.h
+)
 
 set(base_detail_SRCS
         detail/crc_table.h

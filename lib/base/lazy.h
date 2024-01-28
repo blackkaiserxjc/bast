@@ -25,7 +25,7 @@ struct basic_lazy
     {
     }
 
-    basic_lazy(basic_lazy &&o)
+    basic_lazy(basic_lazy &&o) noexcept
         : value_(std::move(o.value_)), callable_(std::move(o.callable_))
     {
     }
